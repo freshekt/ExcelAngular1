@@ -1,5 +1,3 @@
-
-
 import { HttpClient } from "@angular/common/http";
 import { Inject, Injectable } from "@angular/core";
 import { Observable } from "rxjs";
@@ -18,5 +16,9 @@ export class RoutesService {
 
   getWaypoints(id: number): Observable<Array<WaypointsModel>> {
     return this.http.get<Array<WaypointsModel>>(`routes?trip_id=${id}`);
+  }
+
+  updateWaypoints(waypointsModel: WaypointsModel) {
+    return this.http.put(`routes/${waypointsModel.id}`, waypointsModel);
   }
 }

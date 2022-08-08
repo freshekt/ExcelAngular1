@@ -6,4 +6,8 @@
                 <a (click)="buildTable(router.id)" href="javascript:void(0);" routerLinkActive="router-link-active">{{router.title_from}} - {{router.title_to}}</a> 
             </div> 
         </div>
+        <div>
+            <button (click)="detectChanges()">Find chnages</button>
+            <button (click)="submitChanges()">Submit</button>
+        </div>
 </div>
