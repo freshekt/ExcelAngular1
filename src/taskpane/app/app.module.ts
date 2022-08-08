@@ -6,9 +6,10 @@ import { AppRoutingModule } from "./app-routing.module";
 import { APP_BASE_HREF, HashLocationStrategy, LocationStrategy } from "@angular/common";
 import { APIInterceptor } from "./interceptors/api.interceptor";
 import { DriversModule } from "./drivers/drivers.module";
+import { RoutesModule } from "./routes/routes.module";
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, DriversModule, HttpClientModule],
+  imports: [BrowserModule, AppRoutingModule, DriversModule,RoutesModule, HttpClientModule],
   bootstrap: [AppComponent],
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },

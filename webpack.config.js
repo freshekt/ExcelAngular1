@@ -71,6 +71,11 @@ module.exports = async (env, options) => {
         chunks: ["polyfill", "drivers.component"],
       }),
       new HtmlWebpackPlugin({
+        filename: "routes.component.html",
+        template: "./src/taskpane/app/routes/routes.component.html",
+        chunks: ["polyfill", "routes.component"],
+      }),
+      new HtmlWebpackPlugin({
         filename: "app.component.html",
         template: "./src/taskpane/app/app.component.html",
         chunks: ["polyfill", "app.component"],

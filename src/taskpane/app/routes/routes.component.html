@@ -1,0 +1,9 @@
+<div>
+         <div> <a [routerLink]="['/']" routerLinkActive="router-link-active" ><- назад</a></div>
+        <h1>Routes</h1>
+        <div>
+            <div *ngFor="let router of routes">
+                <a (click)="buildTable(router.id)" href="javascript:void(0);" routerLinkActive="router-link-active">{{router.title_from}} - {{router.title_to}}</a> 
+            </div> 
+        </div>
+</div>
