@@ -48,6 +48,7 @@ export class RoutesComponent implements OnInit, OnDestroy {
         map((s) => {
           console.log(s);
           this.waypointsModel = s[0];
+          this.changes = [];
           return s[0].points;
         })
       )
@@ -57,8 +58,17 @@ export class RoutesComponent implements OnInit, OnDestroy {
             /**
              * Insert your Excel code here
              */
-            const currentWorksheet = context.workbook.worksheets.getActiveWorksheet();
 
+            const currentWorksheet = context.workbook.worksheets.getActiveWorksheet();
+            try {
+              let table = currentWorksheet.tables.getItem("ExpensesTable");
+              if (table) {
+                table.delete();
+              }
+              await context.sync();
+            } catch (err) {
+              console.log(err);
+            }
             currentWorksheet.getRange(`C2:D${waypoints.length + 1}`).numberFormat = [["[$-409]m/d/yy h:mm AM/PM;@"]];
             currentWorksheet.getRange(`C2:C${waypoints.length + 1}`).format.columnWidth = 80;
             currentWorksheet.getRange(`D2:D${waypoints.length + 1}`).format.columnWidth = 80;
