@@ -150,4 +150,20 @@ export class RoutesComponent implements OnInit, OnDestroy {
       console.error(err);
     }
   }
+
+  async drawHistogram() {
+    await Excel.run(async (context) => {
+      const worksheet = context.workbook.worksheets.getActiveWorksheet();
+      let expensesTable = worksheet.tables.getItem("ExpensesTable");
+      let bodyRange = expensesTable.getDataBodyRange().load("values");
+
+      await context.sync();
+      const dataRange = worksheet.getRange(`c2:D${bodyRange.values.length + 1}`);
+      let chart = worksheet.charts.add(Excel.ChartType.line, dataRange, Excel.ChartSeriesBy.auto);
+      chart.title.text = "Waypoints Data";
+      chart.legend.position = Excel.ChartLegendPosition.right;
+      chart.legend.format.fill.setSolidColor("white");
+      chart.dataLabels.showValue = false;
+    });
+  }
 }
