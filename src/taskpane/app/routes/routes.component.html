@@ -11,4 +11,9 @@
             <button (click)="submitChanges()">Submit</button>
             <button (click)="drawHistogram()">draw histogram</button>
         </div>
+        <div>
+            <div *ngFor="let change of viewChanges">
+                {{change.address}} - {{change.value}}
+            </div>
+        </div>
 </div>

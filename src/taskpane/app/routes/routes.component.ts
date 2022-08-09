@@ -20,6 +20,7 @@ export class RoutesComponent implements OnInit, OnDestroy {
   alive$ = new Subject();
   changes = [];
   waypointsModel: WaypointsModel;
+  viewChanges: Array<{ address: string; value: string }> = [];
   constructor(
     @Inject(RoutesService) private service: RoutesService,
     @Inject(ActivatedRoute) private route: ActivatedRoute
@@ -118,10 +119,15 @@ export class RoutesComponent implements OnInit, OnDestroy {
     try {
       await Excel.run(async (context) => {
         const worksheet = context.workbook.worksheets.getActiveWorksheet();
-        this.changes.forEach((address) => {
-          worksheet.getRange(address).format.font.italic = true;
-        });
-        await context.sync();
+
+        for (let address of this.changes) {
+          const range = worksheet.getRange(address);
+          range.format.font.italic = true;
+          range.load("values");
+          await context.sync();
+          this.viewChanges.push({ address, value: moment.fromOADate(range.values[0]).format() });
+        }
+        //await context.sync();
       });
     } catch (err) {
       console.error(err);
